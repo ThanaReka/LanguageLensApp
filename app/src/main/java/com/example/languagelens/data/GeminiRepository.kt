@@ -1,9 +1,10 @@
 package com.example.languagelens.data
 
 import android.util.Log
+import com.example.languagelens.BuildConfig
 
 class GeminiRepository(private val apiService: GeminiApiService) {
-    private val API_KEY = "AIzaSyBvobBq8j6oSMht_2izXjHAEo8M9_Qk91U" // 🔥 Keep this secure
+    private val API_KEY =  BuildConfig.GEMINI_API_KEY
 
     suspend fun detectTextFromImage(base64Image: String): String {
         return try {

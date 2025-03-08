@@ -21,20 +21,26 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        val apiKey: String = project.findProperty("GEMINI_API_KEY") as String? ?: ""
-        buildConfigField("String", "GEMINI_API_KEY", "\"$apiKey\"")
-
     }
 
     buildTypes {
+        debug {
+            val apiKey: String = project.findProperty("GEMINI_API_KEY") as String? ?: ""
+            buildConfigField("String", "GEMINI_API_KEY", "\"$apiKey\"") // ✅ Load API key for debug builds
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            val apiKey: String = project.findProperty("GEMINI_API_KEY") as String? ?: ""
+            buildConfigField("String", "GEMINI_API_KEY", "\"$apiKey\"") // ✅ Load API key for release builds
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
